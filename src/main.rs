@@ -5,6 +5,7 @@ use routes::index;
 use rocket::routes;
 use routes::serialize_stream;
 #[rocket::main]
+
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cors = rocket_cors::CorsOptions::default().to_cors()?;
 

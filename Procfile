@@ -1,1 +1,1 @@
-web: ROCKET_PORT=$PORT ROCKET_KEEP_ALIVE=0 ./target/release/solfluid_backend
+web: ROCKET_PORT=$PORT ROCKET_KEEP_ALIVE=0 ./target/release/sos_backend
