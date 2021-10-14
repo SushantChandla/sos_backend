@@ -15,8 +15,8 @@ pub fn index() -> &'static str {
 
 #[get("/getallstream/<public_key>")]
 pub fn get_streams(public_key: &str) -> Json<Value> {
-    let rent_exempt = get_rent_exemption();
-    let accounts = get_all_account();
+    let _rent_exempt = get_rent_exemption();
+    let _accounts = get_all_account();
     // let mut receiving: Vec<PaymentStreamResponse> = Vec::new();
     // let mut sending: Vec<PaymentStreamResponse> = Vec::new();
     // for acc in accounts {
