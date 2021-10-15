@@ -19,7 +19,7 @@ pub struct TokenData {
     pub owner: Pubkey,
     pub metadata_at: Pubkey,
     pub seed:String,
-    pub owned_account:Pubkey,
+  pub owned_account:Pubkey,
 }
 
 #[derive(BorshSerialize, BorshDeserialize, Debug,Deserialize, Serialize)]

@@ -1,9 +1,13 @@
 mod routes;
 mod solana;
 mod token_data_model;
-use routes::index;
 use rocket::routes;
+use routes::get_all_cards;
+use routes::get_marketplace;
+use routes::get_owned;
+use routes::index;
 use routes::serialize_stream;
+
 #[rocket::main]
 
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -14,7 +18,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             "/",
             routes![
                 index,
-                serialize_stream
+                serialize_stream,
+                get_all_cards,
+                get_marketplace,
+                get_owned
             ],
         )
         .attach(cors)
