@@ -1,7 +1,4 @@
-use crate::{
-    solana::{get_all_account, get_rent_exemption},
-    token_data_model::TokenData,
-};
+use crate::{solana::{get_all_account, get_rent_exemption}, token_data_model::{TokenData, TokenDataResponse}};
 use borsh::{BorshDeserialize, BorshSerialize};
 use rocket::{
     get, post,
@@ -56,7 +53,7 @@ pub fn serialize_stream(token_data: Json<TokenData>) -> Json<Value> {
 #[get("/allcards")]
 pub fn get_all_cards() -> Json<Value> {
     let _accounts = get_all_account();
-    let mut all_account: Vec<TokenData> = Vec::new();
+    let mut all_account: Vec<TokenDataResponse> = Vec::new();
 
     for acc in _accounts {
         let program_account = acc.1;
@@ -67,7 +64,7 @@ pub fn get_all_cards() -> Json<Value> {
                 continue;
             }
         };
-        all_account.push(deserialized_data);
+        all_account.push(TokenDataResponse::new(acc.0, deserialized_data));
     }
 
     Json(json!({"code": 200,"result":all_account}))
@@ -76,7 +73,7 @@ pub fn get_all_cards() -> Json<Value> {
 #[get("/marketplace")]
 pub fn get_marketplace() -> Json<Value> {
     let _accounts = get_all_account();
-    let mut all_account: Vec<TokenData> = Vec::new();
+    let mut all_account: Vec<TokenDataResponse> = Vec::new();
 
     for acc in _accounts {
         let program_account = acc.1;
@@ -88,7 +85,7 @@ pub fn get_marketplace() -> Json<Value> {
             }
         };
         if deserialized_data.is_for_sale {
-            all_account.push(deserialized_data);
+            all_account.push(TokenDataResponse::new(acc.0, deserialized_data));
         }
     }
 
@@ -98,7 +95,7 @@ pub fn get_marketplace() -> Json<Value> {
 #[get("/owned/<public_key>")]
 pub fn get_owned(public_key: &str) -> Json<Value> {
     let _accounts = get_all_account();
-    let mut all_account: Vec<TokenData> = Vec::new();
+    let mut all_account: Vec<TokenDataResponse> = Vec::new();
 
     for acc in _accounts {
         let program_account = acc.1;
@@ -110,7 +107,7 @@ pub fn get_owned(public_key: &str) -> Json<Value> {
             }
         };
         if deserialized_data.owner.to_string().eq(public_key) {
-            all_account.push(deserialized_data);
+            all_account.push(TokenDataResponse::new(acc.0, deserialized_data));
         }
     }
 
