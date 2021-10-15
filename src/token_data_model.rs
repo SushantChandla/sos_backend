@@ -42,7 +42,7 @@ impl Serialize for TokenData {
         s.serialize_field("uri", &self.uri)?;
         s.serialize_field("image_uri", &self.image_uri)?;
         s.serialize_field("abilities", &self.abilities)?;
-        s.serialize_field("mint_id", &self.mint_id.to_owned())?;
+        s.serialize_field("mint_id", &self.mint_id.to_string())?;
         s.serialize_field("owner", &self.owner.to_string())?;
         s.serialize_field("metadata_at", &self.metadata_at.to_string())?;
         s.serialize_field("seed", &self.seed)?;
