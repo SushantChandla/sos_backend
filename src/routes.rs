@@ -1,9 +1,13 @@
-use crate::{solana::{get_all_account, get_rent_exemption}, token_data_model::{TokenData, TokenDataResponse}};
+use crate::{
+    solana::{get_all_account, get_rent_exemption},
+    token_data_model::{TokenData, TokenDataResponse},
+};
 use borsh::{BorshDeserialize, BorshSerialize};
 use rocket::{
     get, post,
     serde::json::{serde_json::json, Json, Value},
 };
+use serde::{ser::SerializeStruct, Deserialize, Serialize};
 
 #[get("/")]
 pub fn index() -> &'static str {
@@ -49,6 +53,9 @@ pub fn serialize_stream(token_data: Json<TokenData>) -> Json<Value> {
     let temp = token_data.0;
     Json(json!({"code": 200,"result":temp.try_to_vec().unwrap()}))
 }
+
+#[derive(BorshSerialize, BorshDeserialize, Debug, Serialize, Deserialize)]
+pub struct SellFor(u32);
 
 #[get("/allcards")]
 pub fn get_all_cards() -> Json<Value> {
@@ -112,4 +119,10 @@ pub fn get_owned(public_key: &str) -> Json<Value> {
     }
 
     Json(json!({"code": 200,"result":all_account}))
+}
+
+#[post("/sellfor", data = "<sell>")]
+pub fn serialize_sell(sell: Json<SellFor>) -> Json<Value> {
+    let temp = sell.0;
+    Json(json!({"code": 200,"result":temp.try_to_vec().unwrap()}))
 }

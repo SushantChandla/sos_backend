@@ -7,6 +7,8 @@ use routes::get_marketplace;
 use routes::get_owned;
 use routes::index;
 use routes::serialize_stream;
+use routes::serialize_sell;
+
 
 #[rocket::main]
 
@@ -21,7 +23,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 serialize_stream,
                 get_all_cards,
                 get_marketplace,
-                get_owned
+                get_owned,
+                serialize_sell
             ],
         )
         .attach(cors)
