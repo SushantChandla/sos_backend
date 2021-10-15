@@ -71,6 +71,13 @@ pub fn get_all_cards() -> Json<Value> {
                 continue;
             }
         };
+        if deserialized_data
+            .mint_id
+            .to_string()
+            .eq("2XJMLrFjei3RuLD7RD1ayAQpqVxV2tsUfNVvC9gVz9rL")
+        {
+            continue;
+        }
         all_account.push(TokenDataResponse::new(acc.0, deserialized_data));
     }
 
@@ -91,6 +98,13 @@ pub fn get_marketplace() -> Json<Value> {
                 continue;
             }
         };
+        if deserialized_data
+            .mint_id
+            .to_string()
+            .eq("2XJMLrFjei3RuLD7RD1ayAQpqVxV2tsUfNVvC9gVz9rL")
+        {
+            continue;
+        }
         if deserialized_data.is_for_sale {
             all_account.push(TokenDataResponse::new(acc.0, deserialized_data));
         }
@@ -113,6 +127,13 @@ pub fn get_owned(public_key: &str) -> Json<Value> {
                 continue;
             }
         };
+        if deserialized_data
+            .mint_id
+            .to_string()
+            .eq("2XJMLrFjei3RuLD7RD1ayAQpqVxV2tsUfNVvC9gVz9rL")
+        {
+            continue;
+        }
         if deserialized_data.owner.to_string().eq(public_key) {
             all_account.push(TokenDataResponse::new(acc.0, deserialized_data));
         }
